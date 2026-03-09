@@ -42,7 +42,7 @@ export default function CTASection() {
                         </Link>
 
                         <a
-                            href="https://wa.me/918572071347"
+                            href="https://wa.me/917015486410?text=Hello%20GHT%20Clinic,%0A%0AI%20would%20like%20to%20book%20a%20consultation.%0A%0AName:%0APhone:%0ATreatment%20Interested%20In:%0APreferred%20Date:%0A%0APlease%20assist."
                             target="_blank"
                             rel="noopener noreferrer"
                             className="px-7 py-3 rounded-lg border border-white hover:bg-white hover:text-gray-900 transition"

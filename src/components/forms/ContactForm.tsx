@@ -1,22 +1,21 @@
 "use client"
 
-import { useState } from "react"
+import { useRef, useState } from "react"
 
 export default function ContactForm() {
 
     const [loading, setLoading] = useState(false)
     const [success, setSuccess] = useState(false)
     const [error, setError] = useState("")
-
-    async function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
+    const formRef = useRef<HTMLFormElement>(null);
+    async function handleSubmit(e) {
 
         e.preventDefault()
-
         setLoading(true)
         setError("")
         setSuccess(false)
 
-        const formData = new FormData(e.currentTarget)
+        const formData = new FormData(formRef.current)
 
         const response = await fetch("/api/contact", {
             method: "POST",
@@ -29,9 +28,11 @@ export default function ContactForm() {
 
         if (data.success) {
             setSuccess(true)
-            e.currentTarget.reset()
+            formRef.current.reset()
+            setTimeout(() => { setSuccess(false) }, 5000);
         } else {
             setError("Something went wrong. Please try again.")
+            setTimeout(() => { setError("") }, 5000);
         }
 
     }
@@ -47,6 +48,7 @@ export default function ContactForm() {
                     <div className="bg-white shadow-xl rounded-2xl p-8">
 
                         <form
+                            ref={formRef}
                             onSubmit={handleSubmit}
                             className="space-y-5"
                             aria-label="Clinic Contact Form"

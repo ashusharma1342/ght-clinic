@@ -36,7 +36,7 @@ export default function Navbar() {
 
                 <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
 
-                    <Link href="/" className="hover:text-primary transition">
+                    {/* <Link href="/" className="hover:text-primary transition">
                         Home
                     </Link>
 
@@ -46,11 +46,7 @@ export default function Navbar() {
 
                     <Link href="/results" className="hover:text-primary transition">
                         Results
-                    </Link>
-
-                    <Link href="/contact" className="hover:text-primary transition">
-                        Contact
-                    </Link>
+                    </Link> */}
 
                 </nav>
 
@@ -74,20 +70,20 @@ export default function Navbar() {
 
                     <Link
                         href="/contact"
-                        className="hidden md:inline-block bg-primary text-white px-4 py-2 rounded-lg text-sm hover:opacity-90 transition"
+                        className="bg-teal-600 hover:bg-teal-700 text-white px-5 py-2 rounded-full"
                     >
                         Book Appointment
                     </Link>
 
                     {/* Mobile Menu Button */}
 
-                    <button
+                    {/* <button
                         className="md:hidden"
                         onClick={() => setMenuOpen(!menuOpen)}
                         aria-label="Toggle Menu"
                     >
                         {menuOpen ? <X size={22} /> : <Menu size={22} />}
-                    </button>
+                    </button> */}
 
                 </div>
 
@@ -100,7 +96,7 @@ export default function Navbar() {
 
                     <nav className="flex flex-col px-6 py-6 gap-4 text-sm">
 
-                        <Link
+                        {/* <Link
                             href="/"
                             onClick={() => setMenuOpen(false)}
                             className="hover:text-primary"
@@ -122,23 +118,7 @@ export default function Navbar() {
                             className="hover:text-primary"
                         >
                             Results
-                        </Link>
-
-                        <Link
-                            href="/contact"
-                            onClick={() => setMenuOpen(false)}
-                            className="hover:text-primary"
-                        >
-                            Contact
-                        </Link>
-
-                        <Link
-                            href="/contact"
-                            onClick={() => setMenuOpen(false)}
-                            className="bg-primary text-white text-center px-4 py-2 rounded-lg mt-2"
-                        >
-                            Book Appointment
-                        </Link>
+                        </Link> */}
 
                     </nav>
 

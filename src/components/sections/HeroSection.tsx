@@ -44,7 +44,8 @@ export default function HeroSection() {
                         </Link>
 
                         <Link
-                            href="/services"
+                            // href="/services"
+                            href=""
                             className="px-6 py-3 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
                         >
                             Explore Treatments

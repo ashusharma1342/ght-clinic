@@ -46,7 +46,7 @@ export default function Footer() {
                             </li>
 
                             <li>
-                                <Link href="/results" className="hover:text-primary">
+                                <Link href="/" className="hover:text-primary">
                                     Results
                                 </Link>
                             </li>
