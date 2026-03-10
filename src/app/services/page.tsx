@@ -1,3 +1,4 @@
+import PageContainer from "@/components/layout/PageContainer";
 import Head from "next/head";
 import Image from "next/image";
 
@@ -50,66 +51,68 @@ export default function Page() {
           content="Explore advanced hair transplant, PRP therapy, laser hair removal, acne treatment and skin rejuvenation services at GHT Clinic."
         />
       </Head>
+      <PageContainer>
 
-      <section className="py-20 bg-white dark:bg-gray-950">
-        <div className="max-w-7xl mx-auto px-6">
+        <section className="py-20 bg-white dark:bg-gray-950">
+          <div className="max-w-7xl mx-auto px-6">
 
-          {/* Heading */}
+            {/* Heading */}
 
-          <div className="text-center mb-16">
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
-              Our Hair & Skin Treatments
-            </h1>
-            <p className="mt-4 text-gray-600 dark:text-gray-300">
-              Advanced dermatology and hair restoration treatments performed
-              by experienced specialists using modern technology.
-            </p>
-          </div>
+            <div className="text-center mb-16">
+              <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
+                Our Hair & Skin Treatments
+              </h1>
+              <p className="mt-4 text-gray-600 dark:text-gray-300">
+                Advanced dermatology and hair restoration treatments performed
+                by experienced specialists using modern technology.
+              </p>
+            </div>
 
-          {/* Services Grid */}
+            {/* Services Grid */}
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
 
-            {services.map((service, index) => (
-              <div
-                key={index}
-                className="bg-gray-50 dark:bg-gray-900 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition"
-              >
+              {services.map((service, index) => (
+                <div
+                  key={index}
+                  className="bg-gray-50 dark:bg-gray-900 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition"
+                >
 
-                <div className="relative h-56 w-full">
-                  <Image
-                    src={service.image}
-                    alt={service.title}
-                    fill
-                    className="object-cover"
-                  />
+                  <div className="relative h-56 w-full">
+                    <Image
+                      src={service.image}
+                      alt={service.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+
+                  <div className="p-6">
+
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                      {service.title}
+                    </h3>
+
+                    <p className="mt-3 text-gray-600 dark:text-gray-400">
+                      {service.description}
+                    </p>
+
+                    <a
+                      href="/contact"
+                      className="inline-block mt-5 text-teal-600 dark:text-teal-400 font-medium"
+                    >
+                      Book Consultation →
+                    </a>
+
+                  </div>
                 </div>
+              ))}
 
-                <div className="p-6">
-
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                    {service.title}
-                  </h3>
-
-                  <p className="mt-3 text-gray-600 dark:text-gray-400">
-                    {service.description}
-                  </p>
-
-                  <a
-                    href="/contact"
-                    className="inline-block mt-5 text-teal-600 dark:text-teal-400 font-medium"
-                  >
-                    Book Consultation →
-                  </a>
-
-                </div>
-              </div>
-            ))}
+            </div>
 
           </div>
-
-        </div>
-      </section>
+        </section>
+      </PageContainer>
 
       {/* CTA Section */}
 

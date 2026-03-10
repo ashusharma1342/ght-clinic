@@ -125,20 +125,18 @@ export default function Navbar() {
         //         </div>
         //     )}
         // </header>
-        <header className="fixed top-0 left-0 w-full z-50">
-            <div className="max-w-7xl mx-auto w-full flex items-center px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
-
+        <header className="fixed top-0 left-0 w-full z-50 bg-white/10 backdrop-blur-md md:bg-transparent md:backdrop-blur-none">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-center md:justify-between relative">
                 <Link href="/" className="flex items-center">
                     <Image
                         src="/logo.png"
-                        alt="GHT Clinic"
-                        width={140}
-                        height={50}
+                        alt="GHT Hair & Skin Clinic"
+                        width={150}
+                        height={60}
                         priority
-                        className="object-contain w-[110px] sm:w-[130px] lg:w-[150px] h-auto"
+                        className="w-[110px] sm:w-[130px] lg:w-[150px] h-auto object-contain"
                     />
                 </Link>
-
             </div>
         </header>
     )
