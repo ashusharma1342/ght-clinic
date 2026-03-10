@@ -126,16 +126,16 @@ export default function Navbar() {
         //     )}
         // </header>
         <header className="fixed top-0 left-0 w-full z-50">
-            <div className="flex max-w-7xl mx-auto items-center w-full px-6 py-4 bg-transparent">
-                
-                <Link href="/">
+            <div className="max-w-7xl mx-auto w-full flex items-center px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
+
+                <Link href="/" className="flex items-center">
                     <Image
                         src="/logo.png"
                         alt="GHT Clinic"
                         width={140}
                         height={50}
                         priority
-                        className="object-contain"
+                        className="object-contain w-[110px] sm:w-[130px] lg:w-[150px] h-auto"
                     />
                 </Link>
 
