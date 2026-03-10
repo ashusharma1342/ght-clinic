@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function PremiumHero() {
     return (
-        <section className="relative min-h-screen flex items-center">
+        <section className="relative min-h-screen pt-20 md:pt-0 flex items-center">
 
             {/* Background */}
 
