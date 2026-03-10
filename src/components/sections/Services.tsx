@@ -6,7 +6,7 @@ const services = [
         title: "Hair Transplant",
         description:
             "Advanced hair transplant procedures including FUE and FUT techniques for natural and permanent hair restoration.",
-        image: "/images/hair-transplant.jpg",
+        image: "/images/hair-transplant.png",
         link: "/hair-transplant"
     },
     {

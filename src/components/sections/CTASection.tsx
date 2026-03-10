@@ -11,7 +11,7 @@ export default function CTASection() {
 
             <div className="container">
 
-                <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-pastel-primary to-pastel-secondary p-12 text-center text-white">
+                <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-teal-500 to-teal-600 p-12 text-center text-white">
 
                     {/* HEADLINE */}
 

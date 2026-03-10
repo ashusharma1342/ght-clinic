@@ -100,7 +100,7 @@ export default function Reviews() {
                     <a
                         href="https://www.google.com/maps/place/Gurgaon+Hair+Transplant+Centre/@28.4815884,77.0857798,17z/data=!4m8!3m7!1s0x390d19c5a67cde85:0x792c3a28d20b73be!8m2!3d28.4815884!4d77.0857798!9m1!1b1!16s%2Fg%2F11gr3q2z_m?hl=en&entry=ttu&g_ep=EgoyMDI2MDMwNC4xIKXMDSoASAFQAw%3D%3D"
                         target="_blank"
-                        className="inline-block mt-4 px-6 py-3 bg-pastel-primary text-white rounded-lg hover:opacity-90 transition"
+                        className="inline-block mt-4 px-6 py-3 bg-teal-600 text-white rounded-lg hover:opacity-90 transition"
                     >
                         View All Google Reviews
                     </a>

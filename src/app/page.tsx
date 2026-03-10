@@ -5,12 +5,14 @@ import BeforeAfterSection from "@/components/sections/BeforeAfterSection"
 import CTASection from "@/components/sections/CTASection"
 import ContactForm from "@/components/forms/ContactForm"
 import Footer from "@/components/sections/Footer"
+import PremiumHero from "@/components/sections/PremiumHero";
 
 export default function HomePage() {
   return (
     <main>
 
-      <HeroSection />
+      {/* <HeroSection /> */}
+      <PremiumHero />
 
       <ServicesSection />
 

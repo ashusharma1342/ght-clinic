@@ -147,7 +147,7 @@ export default function ContactForm() {
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="w-full bg-pastel-primary text-white py-3 rounded-lg font-medium hover:opacity-90 transition"
+                                className="w-full bg-teal-600 text-white py-3 rounded-lg font-medium hover:opacity-90 transition"
                             >
 
                                 {loading ? "Sending..." : "Send Message"}
