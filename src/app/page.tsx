@@ -30,7 +30,7 @@ export const metadata = {
     siteName: "GHT Clinic",
     images: [
       {
-        url: "images/doctor.png",
+        url: "https://ght-clinic.vercel.app/images/doctor.png",
         width: 600,
         height: 330,
         alt: "GHT Hair & Skin Clinic",
