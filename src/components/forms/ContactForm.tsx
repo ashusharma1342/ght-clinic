@@ -10,7 +10,6 @@ export default function ContactForm() {
     const [error, setError] = useState("")
     const [message, setMessage] = useState("")
     const params = useSearchParams()
-
     const diagnosis = params.get("diagnosis") || ""
     useEffect(() => {
         if (diagnosis) {
@@ -151,7 +150,7 @@ I would like to book a consultation regarding this issue.`)
                                     name="message"
                                     rows={4}
                                     required
-                                    value={message}
+                                    defaultValue={message}
                                     onChange={(e) => setMessage(e.target.value)}
                                     className="w-full border rounded-lg px-4 py-2 dark:bg-gray-900"
                                 />

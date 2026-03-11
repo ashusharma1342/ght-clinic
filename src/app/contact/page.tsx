@@ -1,3 +1,4 @@
+import { Suspense } from "react"
 import ContactForm from "@/components/forms/ContactForm"
 import PageContainer from "@/components/layout/PageContainer"
 
@@ -13,32 +14,34 @@ export default function ContactPage() {
 
     return (
         <PageContainer>
-            <section className="py-24 sm:pt-40">
+            <Suspense fallback={<div className="p-10">Loading...</div>}>
+                <section className="py-24 sm:pt-40">
 
-                <div className="container max-w-3xl">
+                    <div className="container max-w-3xl">
 
-                    <h1 className="text-4xl font-bold">
+                        <h1 className="text-4xl font-bold">
 
-                        Book Your Consultation
+                            Book Your Consultation
 
-                    </h1>
+                        </h1>
 
-                    <p className="mt-4 text-gray-600 dark:text-gray-300">
+                        <p className="mt-4 text-gray-600 dark:text-gray-300">
 
-                        Fill out the form below to schedule your consultation
-                        with our hair transplant and dermatology specialists.
+                            Fill out the form below to schedule your consultation
+                            with our hair transplant and dermatology specialists.
 
-                    </p>
+                        </p>
 
-                    <div className="mt-10">
+                        <div className="mt-10">
 
-                        <ContactForm />
+                            <ContactForm />
+
+                        </div>
 
                     </div>
 
-                </div>
-
-            </section>
+                </section>
+            </Suspense>
         </PageContainer>
 
     )
