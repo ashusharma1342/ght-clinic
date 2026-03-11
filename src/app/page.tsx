@@ -24,12 +24,12 @@ export default function HomePage() {
 
       <CTASection />
 
-      <ContactForm />
-      <Footer />
       <Suspense fallback={null}>
+        <ContactForm />
 
         <AIAssistant />
       </Suspense>
+      <Footer />
 
     </main>
   )
