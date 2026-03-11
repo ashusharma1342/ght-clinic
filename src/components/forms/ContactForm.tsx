@@ -1,12 +1,27 @@
 "use client"
 
-import { useRef, useState } from "react"
+import { useSearchParams } from "next/navigation";
+import { useRef, useState, useEffect } from "react"
 
 export default function ContactForm() {
 
     const [loading, setLoading] = useState(false)
     const [success, setSuccess] = useState(false)
     const [error, setError] = useState("")
+    const [message, setMessage] = useState("")
+    const params = useSearchParams()
+
+    const diagnosis = params.get("diagnosis") || ""
+    useEffect(() => {
+        if (diagnosis) {
+            setMessage(`AI Consultation Result:
+
+${decodeURIComponent(diagnosis)}
+
+I would like to book a consultation regarding this issue.`)
+        }
+    }, [diagnosis])
+
     const formRef = useRef<HTMLFormElement>(null);
     async function handleSubmit(e) {
 
@@ -29,6 +44,7 @@ export default function ContactForm() {
         if (data.success) {
             setSuccess(true)
             formRef.current.reset()
+            setMessage("")
             setTimeout(() => { setSuccess(false) }, 5000);
         } else {
             setError("Something went wrong. Please try again.")
@@ -130,12 +146,13 @@ export default function ContactForm() {
                                 >
                                     Message
                                 </label>
-
                                 <textarea
                                     id="message"
                                     name="message"
                                     rows={4}
                                     required
+                                    value={message}
+                                    onChange={(e) => setMessage(e.target.value)}
                                     className="w-full border rounded-lg px-4 py-2 dark:bg-gray-900"
                                 />
 

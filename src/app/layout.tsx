@@ -1,6 +1,8 @@
 import "./globals.css"
 import { ThemeProvider } from "@/components/providers/ThemeProvider"
 import Navbar from "@/components/layout/Navbar"
+import AIChatWidget from "@/components/ai/AIChatWidget"
+import AIAssistant from "@/components/ai/AIAssistant"
 
 export const metadata = {
   metadataBase: new URL("https://ght-clinic.vercel.app"),
@@ -68,7 +70,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
+          {/* <AIChatWidget/> */}
           {children}
+          <AIAssistant />
         </ThemeProvider>
 
       </body>
