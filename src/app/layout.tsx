@@ -1,8 +1,6 @@
-import { Suspense } from "react"
 import "./globals.css"
 import { ThemeProvider } from "@/components/providers/ThemeProvider"
 import Navbar from "@/components/layout/Navbar"
-import AIAssistant from "@/components/ai/AIAssistant"
 
 export const metadata = {
   metadataBase: new URL("https://ght-clinic.vercel.app"),
@@ -71,9 +69,6 @@ export default function RootLayout({
         >
           <Navbar />
           {children}
-          <Suspense fallback={null}>
-            <AIAssistant />
-          </Suspense>
         </ThemeProvider>
 
       </body>

@@ -6,6 +6,8 @@ import CTASection from "@/components/sections/CTASection"
 import ContactForm from "@/components/forms/ContactForm"
 import Footer from "@/components/sections/Footer"
 import PremiumHero from "@/components/sections/PremiumHero";
+import AIAssistant from "@/components/ai/AIAssistant";
+import { Suspense } from "react";
 
 export default function HomePage() {
   return (
@@ -23,8 +25,11 @@ export default function HomePage() {
       <CTASection />
 
       <ContactForm />
-
       <Footer />
+      <Suspense fallback={null}>
+
+        <AIAssistant />
+      </Suspense>
 
     </main>
   )
