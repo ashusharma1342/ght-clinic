@@ -11,7 +11,7 @@ export default function AIAssistant() {
         <>
             <button
                 onClick={() => setOpen(true)}
-                className="fixed bottom-6 right-6 bg-blue-600 text-white px-5 py-3 rounded-full shadow-lg"
+                className="fixed bottom-6 right-6 bg-teal-600 text-white px-5 py-3 rounded-full shadow-lg"
             >
                 AI Assistance
             </button>
