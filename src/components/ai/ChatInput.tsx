@@ -18,6 +18,7 @@ export default function ChatInput({ addMessage, onImageUpload }: any) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ message: text })
         })
+        
 
         const data = await res.json()
 

@@ -1,35 +1,55 @@
 export function localAIResponse(message: string) {
   const text = message.toLowerCase();
 
-  if (text.includes("hair")) {
+  if (text.includes("hair fall") || text.includes("hair loss")) {
     return `
-Possible Issue: Hair thinning or early hair loss.
+Hair fall can happen due to:
 
-Suggested Treatments at GHT Clinic:
-• PRP Therapy
-• Hair Transplant
-• Mesotherapy
+• stress
+• poor diet
+• hormonal changes
+• dandruff
+• family history
 
-Upload a photo so our AI assistant can analyze your scalp.
+If it continues for several weeks, a specialist consultation is recommended.
 `;
   }
 
-  if (text.includes("acne")) {
+  if (text.includes("pimple") || text.includes("acne")) {
     return `
-Possible Issue: Acne caused by clogged pores or hormonal imbalance.
+Acne can occur due to:
 
-Treatments available:
-• Chemical Peel
-• Dermatology Medication
-• Laser Therapy
+• oily skin
+• clogged pores
+• hormonal changes
+• stress
 
-You may upload an image for better analysis.
+Proper skincare and treatment can help control acne.
+`;
+  }
+
+  if (text.includes("dandruff")) {
+    return `
+Dandruff may happen due to:
+
+• dry scalp
+• oily scalp
+• fungal buildup
+• harsh hair products
 `;
   }
 
   return `
-Thank you for contacting GHT Clinic.
+Hello! 👋
 
-Please describe your hair or skin concern or upload a photo.
+I'm here to help with hair and skin concerns.
+
+Which issue are you facing?
+
+• Hair fall
+• Hair thinning
+• Acne or pimples
+• Dandruff
+• Skin pigmentation
 `;
 }

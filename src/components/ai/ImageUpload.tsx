@@ -1,18 +1,24 @@
 "use client"
 
-export default function ImageUpload({ onImage }: any) {
 
-    function handle(e: any) {
+type Props = {
+    onImage: (base64: string) => void
+    disabled?: boolean
+}
 
-        const file = e.target.files[0]
+export default function ImageUpload({ onImage, disabled }: Props) {
+
+    function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
+
+        const file = e.target.files?.[0]
+
+        if (!file) return
 
         const reader = new FileReader()
 
         reader.onloadend = () => {
 
-            const base64 = (reader.result as string).split(",")[1]
-
-            onImage(base64)
+            onImage(reader.result as string)
 
         }
 
@@ -21,6 +27,21 @@ export default function ImageUpload({ onImage }: any) {
     }
 
     return (
-        <input type="file" accept="image/*" onChange={handle} className="p-2" />
+
+        <label className="cursor-pointer text-gray-500 text-sm">
+
+            📷
+
+            <input
+                type="file"
+                accept="image/*"
+                disabled={disabled}
+                className="hidden"
+                onChange={handleFile}
+            />
+
+        </label>
+
     )
+
 }

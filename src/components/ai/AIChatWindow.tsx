@@ -1,17 +1,22 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
+import { useRouter } from "next/navigation"
+
 import ChatMessage from "./ChatMessage"
-import ChatInput from "./ChatInput"
-import Link from "next/link"
+import AITyping from "./AITyping"
+import ImageUpload from "./ImageUpload"
 
-export default function AIChatWindow({ close }: any) {
+import { ChatMessageType } from "@/types/chat"
 
-    type ChatMessageType = {
-        role: "user" | "ai"
-        text?: string
-        image?: string
-    }
+export default function AIChatWindow({ close }: { close: () => void }) {
+
+    const router = useRouter()
+
+    const [input, setInput] = useState("")
+    const [diagnosis, setDiagnosis] = useState("")
+    const [isLoading, setIsLoading] = useState(false);
+
     const [messages, setMessages] = useState<ChatMessageType[]>([
         {
             role: "ai",
@@ -19,96 +24,198 @@ export default function AIChatWindow({ close }: any) {
         }
     ])
 
-    const [diagnosis, setDiagnosis] = useState("")
-    function addMessage(role: "user" | "ai", text?: string, image?: string) {
-        setMessages((prev) => [...prev, { role, text, image }])
+    const messagesEndRef = useRef<HTMLDivElement>(null)
+
+    function scrollToBottom() {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
     }
+
+    useEffect(() => {
+        scrollToBottom()
+    }, [messages])
+
+    function addMessage(
+        role: "user" | "ai",
+        text?: string,
+        image?: string,
+        typing?: boolean
+    ) {
+
+        setMessages(prev => [...prev, { role, text, image, typing }])
+
+    }
+
+    async function sendMessage() {
+
+        if (!input.trim() || isLoading) return
+
+        const userInput = input
+
+        addMessage("user", userInput)
+
+        setInput("")
+        setIsLoading(true)
+
+        addMessage("ai", "", undefined, true)
+
+        try {
+
+            const res = await fetch("/api/ai-chat", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ message: userInput })
+            })
+
+            const reader = res.body?.getReader()
+
+            if (!reader) {
+                setIsLoading(false)
+                return
+            }
+
+            let aiText = ""
+
+            setMessages(prev => {
+
+                const updated = [...prev]
+
+                updated.pop()
+
+                updated.push({ role: "ai", text: "" })
+
+                return updated
+
+            })
+
+            while (true) {
+
+                const { done, value } = await reader.read()
+
+                if (done) break
+
+                const chunk = new TextDecoder().decode(value)
+
+                aiText += chunk
+
+                setMessages(prev => {
+
+                    const updated = [...prev]
+
+                    updated[updated.length - 1].text = aiText
+
+                    return updated
+
+                })
+
+            }
+
+        } catch (err) {
+
+            addMessage("ai", "⚠️ Something went wrong. Please try again.")
+
+        }
+
+        setIsLoading(false)
+
+    }
+
     async function handleImage(base64: string) {
 
-        addMessage("user", "Uploaded image")
+        addMessage("user", "", base64)
 
-        const res = await fetch("/api/ai-consult", {
+        addMessage("ai", "Analyzing image...", undefined)
+
+        const res = await fetch("/api/ai-analyze", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify({ image: base64 })
         })
 
         const data = await res.json()
 
-        addMessage("ai", data.analysis)
+        setDiagnosis(data.diagnosis)
 
-        setDiagnosis(data.analysis)
+        addMessage("ai", data.diagnosis)
+
     }
 
     return (
-        <div className="
-fixed
-bottom-24
-right-6
-w-[380px]
-h-[520px]
-bg-white
-dark:bg-gray-900
-shadow-2xl
-rounded-2xl
-flex
-flex-col
-overflow-hidden
-z-[9999]
-border
-border-gray-200
-dark:border-gray-700
-">
-            <div className="
-flex
-items-center
-justify-between
-px-4
-py-3
-border-b
-bg-white
-dark:bg-gray-900
-">
 
-                <h3 className="font-semibold text-gray-900 dark:text-white">
-                    GHT AI Assistant
-                </h3>
+        <div className="fixed bottom-24 right-6 w-[360px] h-[520px] bg-white dark:bg-gray-900 shadow-2xl rounded-xl flex flex-col z-[9999] border">
+
+            <div className="p-3 border-b flex justify-between">
+
+                <span className="font-medium">AI Assistant</span>
+
+                <button onClick={close}>✕</button>
+
+            </div>
+
+            <div className="flex-1 overflow-y-auto p-3 space-y-3">
+
+                {messages.map((m, i) => (
+
+                    <div key={i}>
+
+                        {m.typing
+                            ? <AITyping />
+                            : <ChatMessage role={m.role} text={m.text} image={m.image} />
+                        }
+
+                    </div>
+
+                ))}
+
+                <div ref={messagesEndRef}></div>
+
+            </div>
+
+            {diagnosis && (
 
                 <button
-                    onClick={close}
-                    className="text-gray-500 hover:text-black dark:hover:text-white"
+                    onClick={() =>
+                        router.push(`/contact?diagnosis=${encodeURIComponent(diagnosis)}`)
+                    }
+                    className="mx-3 mb-2 bg-teal-600 text-white py-2 rounded-lg text-sm"
                 >
-                    ✕
+                    Book Appointment
+                </button>
+
+            )}
+
+            <div className="p-3 border-t flex gap-2 items-center">
+
+                <ImageUpload onImage={handleImage} disabled={isLoading} />
+
+                <input
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    placeholder="Type your concern..."
+                    className="flex-1 border rounded-lg px-3 py-2 text-sm dark:bg-gray-800"
+                />
+
+                <button
+                    onClick={sendMessage}
+                    disabled={isLoading}
+                    className={`
+    px-3 py-2 rounded-lg text-sm
+    ${isLoading
+                            ? "bg-gray-400 cursor-not-allowed"
+                            : "bg-teal-600 hover:bg-teal-700 text-white"
+                        }
+  `}
+                >
+                    {isLoading ? "..." : "Send"}
                 </button>
 
             </div>
 
-            <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3 bg-gray-50 dark:bg-gray-800">
-
-                {messages.map((m, i) => (
-                    <ChatMessage
-                        key={i}
-                        role={m.role}
-                        text={m.text}
-                        image={m.image}
-                    />
-                ))}
-            </div>
-
-            {diagnosis && (
-                <Link
-                    href={`/contact?diagnosis=${encodeURIComponent(diagnosis)}`}
-                    className="bg-blue-600 text-white text-center py-2 m-3 rounded"
-                >
-                    Book Appointment
-                </Link>
-            )}
-
-            <ChatInput
-                addMessage={addMessage}
-                onImageUpload={handleImage}
-            />
-
         </div>
+
     )
+
 }

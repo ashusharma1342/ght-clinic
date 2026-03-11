@@ -1,53 +1,47 @@
-import { NextRequest, NextResponse } from "next/server";
-import OpenAI from "openai";
+import { NextRequest } from "next/server";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import { localAIResponse } from "@/lib/localAI";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+
+const model = genAI.getGenerativeModel({
+  model: "gemini-3-flash-preview",
 });
 
 export async function POST(req: NextRequest) {
+  const { message } = await req.json();
+
   try {
-    const { message } = await req.json();
-
-    // If API key is missing → use local AI
-    if (!process.env.OPENAI_API_KEY) {
-      const localReply = localAIResponse(message);
-
-      return NextResponse.json({
-        success: true,
-        source: "local",
-        reply: localReply,
-      });
-    }
-
-    // Try OpenAI
-    const response = await openai.responses.create({
-      model: "gpt-4.1",
-      input: `You are an AI assistant for a hair and skin clinic.
-
-User question: ${message}
-
-Provide helpful advice and suggest clinic treatments if relevant.`,
+    const result = await model.generateContentStream({
+      contents: [
+        {
+          role: "user",
+          parts: [{ text: message }],
+        },
+      ],
     });
 
-    return NextResponse.json({
-      success: true,
-      source: "openai",
-      reply: response.output_text,
+    const encoder = new TextEncoder();
+
+    const stream = new ReadableStream({
+      async start(controller) {
+        for await (const chunk of result.stream) {
+          const text = chunk.text();
+
+          controller.enqueue(encoder.encode(text));
+        }
+
+        controller.close();
+      },
     });
+
+    return new Response(stream);
   } catch (error: any) {
-    console.error("AI ERROR:", error);
+    console.error("Gemini error:", error);
 
     // Fallback to local AI
-    const { message } = await req.json().catch(() => ({ message: "" }));
+    const reply = localAIResponse(message);
 
-    const localReply = localAIResponse(message);
-
-    return NextResponse.json({
-      success: true,
-      source: "local-fallback",
-      reply: localReply,
-    });
+    return new Response(reply);
   }
 }
