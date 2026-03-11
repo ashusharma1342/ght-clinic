@@ -1,4 +1,10 @@
-export default function ChatMessage({ role, text, image }: any) {
+type Props = {
+    role: "user" | "ai"
+    text?: string
+    image?: string
+}
+
+export default function ChatMessage({ role, text, image }: Props) {
 
     return (
 

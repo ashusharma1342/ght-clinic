@@ -3,13 +3,20 @@
 import { useState } from "react"
 import ChatMessage from "./ChatMessage"
 import ChatInput from "./ChatInput"
-import ImageUpload from "./ImageUpload"
 import Link from "next/link"
 
 export default function AIChatWindow({ close }: any) {
 
-    const [messages, setMessages] = useState([
-        { role: "ai", text: "Hi 👋 Welcome to GHT Clinic AI Assistance. How may I help you today?" }
+    type ChatMessageType = {
+        role: "user" | "ai"
+        text?: string
+        image?: string
+    }
+    const [messages, setMessages] = useState<ChatMessageType[]>([
+        {
+            role: "ai",
+            text: "Hi 👋 Welcome to GHT Clinic AI Assistance. How may I help you today?"
+        }
     ])
 
     const [diagnosis, setDiagnosis] = useState("")
@@ -87,8 +94,6 @@ dark:bg-gray-900
                     />
                 ))}
             </div>
-
-            {/* <ImageUpload onImage={handleImage} /> */}
 
             {diagnosis && (
                 <Link
