@@ -20,7 +20,7 @@ export default function AIChatWindow({ close }: any) {
     ])
 
     const [diagnosis, setDiagnosis] = useState("")
-    function addMessage(role: string, text: string, image?: string) {
+    function addMessage(role: "user" | "ai", text?: string, image?: string) {
         setMessages((prev) => [...prev, { role, text, image }])
     }
     async function handleImage(base64: string) {
